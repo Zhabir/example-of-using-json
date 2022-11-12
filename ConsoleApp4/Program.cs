@@ -142,11 +142,10 @@ namespace lab3sem3
 
         public class Horse
         {
-            public int
-            age;//возраст
+            public int age;//возраст
             public double weightHorse;// вес коня
-            protected double dishorse; // коэффициент уставания лошади
-            public int horseCount = 0;
+            static protected double dishorse; // коэффициент уставания лошади
+            static public int horseCount = 0;
             public int HorseCount
             {
                 get { return horseCount; }
@@ -210,7 +209,7 @@ namespace lab3sem3
 
             private int numbercarriage; // номер повозки
             protected double distance; // максимальное расстояние , которое может пройти повозка
-            private double weightCarriage; // масса повозки
+            static private double weightCarriage; // масса повозки
 
 
             public int NumberCarriage
@@ -389,12 +388,13 @@ namespace lab3sem3
                 WriteIndented = true
             };
             string jsonString = JsonSerializer.Serialize<Carriage>(b,options);
+            Console.WriteLine("json.Serialize:");
             File.WriteAllText("carriage.json", jsonString);
             Console.WriteLine(File.ReadAllText("carriage.json"));
             Carriage? restoredCarriage = JsonSerializer.Deserialize<Carriage>(jsonString);
+            Console.WriteLine("\njson.Deserialize:");
             Console.WriteLine($"NumberCarriage: {restoredCarriage?.NumberCarriage}");
             Console.WriteLine($"WeightCarriage:{restoredCarriage?.WeightCarriage}");
-            restoredCarriage.Distance = 0;
             Console.WriteLine($"Distance:{restoredCarriage?.Distance}");
             Console.WriteLine($"Age:{restoredCarriage?.Age}");
             Console.WriteLine($"WeightHorse:{restoredCarriage?.WeightHorse}");
